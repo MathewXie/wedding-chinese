@@ -1,5 +1,6 @@
 @import url("common.css");
 @import url("animation.css");
+@import url("chinese-decor.css");
 
 html {
     scrollbar-width: none !important;
@@ -12,7 +13,7 @@ html {
 }
 
 .font-esthetic {
-    font-family: 'Sacramento', cursive !important;
+    font-family: 'Ma Shan Zheng', 'ZCOOL XiaoWei', 'KaiTi', cursive !important;
 }
 
 .font-arabic {
@@ -33,7 +34,7 @@ html[data-bs-theme="dark"] .btn-transparent {
 }
 
 html[data-bs-theme="light"] .btn-transparent {
-    background-color: rgba(var(--bs-light-rgb), 0.5) !important;
+    background-color: rgba(255, 248, 240, 0.7) !important;
     backdrop-filter: blur(0.5rem);
 }
 
@@ -45,30 +46,17 @@ html[data-bs-theme="light"] .btn-transparent {
     z-index: 1056;
 }
 
-html[data-bs-theme="light"] .color-theme-svg {
-    color: rgb(255, 255, 255);
-    background-color: var(--bs-light);
+html[data-bs-theme="dark"] .bg-light-dark {
+    background-color: rgb(var(--bs-dark-rgb));
+}
+
+html[data-bs-theme="dark"] .bg-white-black {
+    background-color: rgb(var(--bs-black-rgb));
 }
 
 html[data-bs-theme="dark"] .color-theme-svg {
     color: rgb(0, 0, 0);
     background-color: var(--bs-dark);
-}
-
-html[data-bs-theme="light"] .bg-light-dark {
-    background-color: rgb(var(--bs-light-rgb));
-}
-
-html[data-bs-theme="dark"] .bg-light-dark {
-    background-color: rgb(var(--bs-dark-rgb));
-}
-
-html[data-bs-theme="light"] .bg-white-black {
-    background-color: rgb(var(--bs-white-rgb));
-}
-
-html[data-bs-theme="dark"] .bg-white-black {
-    background-color: rgb(var(--bs-black-rgb));
 }
 
 .bg-cover-home {
@@ -96,20 +84,4 @@ html[data-bs-theme="dark"] .bg-white-black {
     .width-loading {
         width: 75%;
     }
-}
-
-svg {
-    display: block;
-    line-height: 0;
-    shape-rendering: geometricPrecision;
-    backface-visibility: hidden;
-}
-
-.svg-wrapper {
-    overflow: hidden !important;
-    transform: translateZ(0) !important;
-}
-
-.no-gap-bottom {
-    margin-bottom: -0.75rem !important;
 }

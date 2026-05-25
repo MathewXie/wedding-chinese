@@ -4,10 +4,23 @@ html {
 }
 
 body {
-    font-family: 'Josefin Sans', sans-serif !important;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif !important;
     padding: 0 !important;
     width: 100% !important;
     overflow-x: hidden !important;
+}
+
+:root {
+    --cn-red: #C41E3A;
+    --cn-red-dark: #8B0000;
+    --cn-red-light: #E8333A;
+    --cn-gold: #D4AF37;
+    --cn-gold-light: #F0D060;
+    --cn-gold-dark: #B8860B;
+    --cn-cream: #FFF8F0;
+    --cn-red-bg: #FDF2F0;
+    --cn-red-rgb: 196, 30, 58;
+    --cn-gold-rgb: 212, 175, 55;
 }
 
 i {
@@ -28,14 +41,25 @@ svg>path {
     transition: color 350ms ease;
 }
 
+/* Navbar - Chinese red with gold active */
 html[data-bs-theme="dark"] .navbar {
     background-color: rgba(var(--bs-dark-rgb), 0.75) !important;
     backdrop-filter: blur(0.5rem);
 }
 
 html[data-bs-theme="light"] .navbar {
-    background-color: rgba(var(--bs-light-rgb), 0.75) !important;
+    background-color: rgba(var(--cn-red-rgb), 0.92) !important;
     backdrop-filter: blur(0.5rem);
+    border-top-color: var(--cn-gold) !important;
+}
+
+html[data-bs-theme="light"] .navbar .nav-link {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+html[data-bs-theme="light"] .navbar .nav-link.active,
+html[data-bs-theme="light"] .navbar .nav-link:hover {
+    color: var(--cn-gold-light) !important;
 }
 
 html[data-bs-theme="dark"] .text-theme-auto {
@@ -48,10 +72,6 @@ html[data-bs-theme="light"] .text-theme-auto {
 
 html[data-bs-theme="dark"] .nav-link {
     color: rgba(var(--bs-white-rgb), 0.5);
-}
-
-html[data-bs-theme="light"] .nav-link {
-    color: rgba(var(--bs-black-rgb), 0.5);
 }
 
 html[data-bs-theme="dark"] .bg-theme-auto {
@@ -80,19 +100,19 @@ html[data-bs-theme="dark"] .btn-outline-auto {
 }
 
 html[data-bs-theme="light"] .btn-outline-auto {
-    --bs-btn-color: var(--bs-dark);
-    --bs-btn-border-color: var(--bs-dark);
-    --bs-btn-hover-color: var(--bs-white);
-    --bs-btn-hover-bg: var(--bs-dark);
-    --bs-btn-hover-border-color: var(--bs-dark);
-    --bs-btn-focus-shadow-rgb: var(--bs-dark-rgb);
-    --bs-btn-active-color: var(--bs-white);
-    --bs-btn-active-bg: var(--bs-dark);
-    --bs-btn-active-border-color: var(--bs-dark);
+    --bs-btn-color: var(--cn-red-dark);
+    --bs-btn-border-color: var(--cn-gold);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--cn-red);
+    --bs-btn-hover-border-color: var(--cn-red);
+    --bs-btn-focus-shadow-rgb: var(--cn-red-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--cn-red-dark);
+    --bs-btn-active-border-color: var(--cn-red-dark);
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: var(--bs-dark);
+    --bs-btn-disabled-color: var(--cn-red);
     --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: var(--bs-dark);
+    --bs-btn-disabled-border-color: var(--cn-gold);
     --bs-gradient: none;
 }
 
@@ -117,4 +137,14 @@ html[data-bs-theme="light"] .bg-overlay-auto {
 
 .gif-image {
     max-height: 10rem;
+}
+
+/* Bootstrap primary override to Chinese red */
+html[data-bs-theme="light"] .btn-primary {
+    --bs-btn-bg: var(--cn-red);
+    --bs-btn-border-color: var(--cn-red);
+    --bs-btn-hover-bg: var(--cn-red-dark);
+    --bs-btn-hover-border-color: var(--cn-red-dark);
+    --bs-btn-active-bg: var(--cn-red-dark);
+    --bs-btn-active-border-color: var(--cn-red-dark);
 }

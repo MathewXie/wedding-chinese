@@ -85,7 +85,7 @@ export const gallery = (() => {
 
         let files;
         try {
-            const res = await fetch(GALLERY_PATH + 'gallery.json');
+            const res = await fetch(GALLERY_PATH + 'gallery.json?t=' + Date.now());
             if (!res.ok) {
                 return false;
             }
