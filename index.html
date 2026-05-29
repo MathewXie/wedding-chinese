@@ -408,6 +408,86 @@
                     <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--cn-gold), transparent);"></div>
                 </div>
 
+                <!-- 亲友祝福 -->
+                <section class="my-0 pb-4 pt-4" id="guestbook" style="background-color: #fff;">
+                    <div class="container">
+                        <div class="cn-divider"><span class="cn-xi cn-xi-animated" style="font-size: 1.8rem;">囍</span></div>
+                        <h2 class="font-esthetic text-center mt-1 mb-4" style="font-size: 2.25rem; color: var(--cn-red);" data-i18n="亲友祝福">亲友祝福</h2>
+
+                        <!-- Wishes list -->
+                        <div id="guestbook-list" class="mx-2 mb-4">
+                            <p class="text-center" style="color: #999; font-size: 0.85rem;"><i class="fa-solid fa-spinner fa-spin me-2"></i><span data-i18n="加载中...">加载中...</span></p>
+                        </div>
+
+                        <!-- Submit form -->
+                        <div class="mx-2 cn-frame rounded-4 p-4" style="background: var(--cn-cream); border-color: var(--cn-gold) !important;">
+                            <div class="mb-3">
+                                <label for="guestbook-name" class="form-label my-1" style="color: var(--cn-red-dark);"><i class="fa-solid fa-person me-2"></i><span data-i18n="姓名">姓名</span></label>
+                                <input type="text" class="form-control shadow-sm rounded-4" id="guestbook-name" minlength="2" maxlength="50" placeholder="请输入您的姓名" data-i18n-placeholder="请输入您的姓名" autocomplete="name" style="border-color: rgba(var(--cn-gold-rgb),0.4);">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="guestbook-message" class="form-label my-1" style="color: var(--cn-red-dark);"><i class="fa-solid fa-comment me-2"></i><span data-i18n="留言内容">留言内容</span></label>
+                                <textarea class="form-control shadow-sm rounded-4" id="guestbook-message" rows="3" maxlength="500" placeholder="写下您的祝福与留言" data-i18n-placeholder="写下您的祝福与留言" style="border-color: rgba(var(--cn-gold-rgb),0.4);"></textarea>
+                            </div>
+
+                            <div class="d-grid">
+                                <button class="btn btn-sm rounded-4 shadow m-1" id="guestbook-btn" style="background-color: var(--cn-red); color: #fff; border-color: var(--cn-gold);" onclick="(function(btn){
+                                    var name=document.getElementById('guestbook-name');
+                                    var message=document.getElementById('guestbook-message');
+                                    if(!name.value.trim()){alert('请输入您的姓名');return;}
+                                    if(!message.value.trim()){alert('请输入留言内容');return;}
+                                    btn.disabled=true;btn.innerHTML='<i class=&quot;fa-solid fa-spinner fa-spin me-2&quot;></i>提交中...';
+                                    fetch('https://script.google.com/macros/s/AKfycbx54HXkkpk4Z3tjT2tQbfezVrqNmsLvdhc-nHgmU7oBehCJ8QyC1OT6WzvOkctzVB9HVw/exec',{
+                                        method:'POST',
+                                        body:JSON.stringify({name:name.value.trim(),message:message.value.trim()})
+                                    }).then(function(r){return r.json()}).then(function(data){
+                                        if(data.success){
+                                            btn.innerHTML='<i class=&quot;fa-solid fa-check me-2&quot;></i>已提交，感谢您！';
+                                            btn.style.backgroundColor='#198754';
+                                            name.disabled=true;message.disabled=true;
+                                            window._loadGuestbook();
+                                        }else{throw new Error();}
+                                    }).catch(function(){
+                                        btn.disabled=false;btn.innerHTML='<i class=&quot;fa-solid fa-paper-plane me-2&quot;></i>提交留言';
+                                        alert('提交失败，请稍后再试');
+                                    });
+                                })(this)">
+                                    <i class="fa-solid fa-paper-plane me-2"></i><span data-i18n="提交留言">提交留言</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <script>
+                (function(){
+                    var API='https://script.google.com/macros/s/AKfycbx54HXkkpk4Z3tjT2tQbfezVrqNmsLvdhc-nHgmU7oBehCJ8QyC1OT6WzvOkctzVB9HVw/exec';
+                    function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+                    window._loadGuestbook=function(){
+                        fetch(API).then(function(r){return r.json()}).then(function(list){
+                            var el=document.getElementById('guestbook-list');
+                            if(!list.length){el.innerHTML='<p class="text-center" style="color:#999;font-size:0.85rem;">暂无留言</p>';return;}
+                            var html='';
+                            list.reverse().forEach(function(item){
+                                var d=item.time?new Date(item.time).toLocaleDateString('zh-CN'):'';
+                                html+='<div class="cn-frame rounded-4 p-3 mb-3" style="background:var(--cn-cream);border-color:var(--cn-gold)!important;">'
+                                    +'<div class="d-flex justify-content-between align-items-center mb-1">'
+                                    +'<strong style="color:var(--cn-red-dark);font-size:0.95rem;"><i class="fa-solid fa-user me-1"></i>'+esc(item.name)+'</strong>'
+                                    +'<small style="color:#999;">'+esc(d)+'</small></div>'
+                                    +'<p class="m-0" style="font-size:0.9rem;color:#555;">'+esc(item.message)+'</p></div>';
+                            });
+                            el.innerHTML=html;
+                        }).catch(function(){
+                            document.getElementById('guestbook-list').innerHTML='<p class="text-center" style="color:#999;font-size:0.85rem;">加载失败</p>';
+                        });
+                    };
+                    window._loadGuestbook();
+                })();
+                </script>
+
+                <!-- Gold line separator -->
+                <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--cn-gold), transparent);"></div>
+
                 <!-- RSVP -->
                 <section class="my-0 pb-4 pt-4" id="rsvp" style="background-color: #fff;">
                     <div class="container">
@@ -719,6 +799,11 @@
             "提交失败，请稍后再试": "Gagal mengirim, silakan coba lagi",
             "请输入您的姓名": "Masukkan nama Anda",
             "请选择是否出席": "Silakan pilih kehadiran",
+            "亲友祝福": "Ucapan & Doa",
+            "留言内容": "Pesan",
+            "写下您的祝福与留言": "Tuliskan ucapan dan pesan Anda",
+            "提交留言": "Kirim Pesan",
+            "加载中...": "Memuat...",
             "感谢您的关注与祝福<br>您的莅临将是我们莫大的荣幸与喜乐": "Terima kasih atas perhatian dan doa Anda<br>Kehadiran Anda akan menjadi kehormatan dan sukacita bagi kami",
             "谨此致以最诚挚的谢意": "Dengan penuh rasa terima kasih",
             "谢氏家族 & Sitorus 家族": "Keluarga Xie & Keluarga Sitorus",
