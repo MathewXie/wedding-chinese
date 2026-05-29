@@ -431,21 +431,32 @@
                                 <textarea class="form-control shadow-sm rounded-4" id="guestbook-message" rows="3" maxlength="500" placeholder="写下您的祝福与留言" data-i18n-placeholder="写下您的祝福与留言" style="border-color: rgba(var(--cn-gold-rgb),0.4);"></textarea>
                             </div>
 
+                            <div class="mb-3">
+                                <label for="guestbook-presence" class="form-label my-1" style="color: var(--cn-red-dark);"><i class="fa-solid fa-person-circle-question me-2"></i><span data-i18n="是否出席">是否出席</span></label>
+                                <select class="form-select shadow-sm rounded-4" id="guestbook-presence" autocomplete="off" style="border-color: rgba(var(--cn-gold-rgb),0.4);">
+                                    <option value="" selected disabled data-i18n="请选择">请选择</option>
+                                    <option value="出席" data-i18n-value="出席">&#9989; 出席</option>
+                                    <option value="无法出席" data-i18n-value="无法出席">&#10060; 无法出席</option>
+                                </select>
+                            </div>
+
                             <div class="d-grid">
                                 <button class="btn btn-sm rounded-4 shadow m-1" id="guestbook-btn" style="background-color: var(--cn-red); color: #fff; border-color: var(--cn-gold);" onclick="(function(btn){
                                     var name=document.getElementById('guestbook-name');
                                     var message=document.getElementById('guestbook-message');
+                                    var presence=document.getElementById('guestbook-presence');
                                     if(!name.value.trim()){alert('请输入您的姓名');return;}
                                     if(!message.value.trim()){alert('请输入留言内容');return;}
+                                    if(!presence.value){alert('请选择是否出席');return;}
                                     btn.disabled=true;btn.innerHTML='<i class=&quot;fa-solid fa-spinner fa-spin me-2&quot;></i>提交中...';
                                     fetch('https://script.google.com/macros/s/AKfycbx54HXkkpk4Z3tjT2tQbfezVrqNmsLvdhc-nHgmU7oBehCJ8QyC1OT6WzvOkctzVB9HVw/exec',{
                                         method:'POST',
-                                        body:JSON.stringify({name:name.value.trim(),message:message.value.trim()})
+                                        body:JSON.stringify({name:name.value.trim(),message:message.value.trim(),presence:presence.value})
                                     }).then(function(r){return r.json()}).then(function(data){
                                         if(data.success){
                                             btn.innerHTML='<i class=&quot;fa-solid fa-check me-2&quot;></i>已提交，感谢您！';
                                             btn.style.backgroundColor='#198754';
-                                            name.disabled=true;message.disabled=true;
+                                            name.disabled=true;message.disabled=true;presence.disabled=true;
                                             window._loadGuestbook();
                                         }else{throw new Error();}
                                     }).catch(function(){
@@ -470,10 +481,13 @@
                             var html='';
                             list.reverse().forEach(function(item){
                                 var d=item.time?new Date(item.time).toLocaleDateString('zh-CN'):'';
+                                var pBadge=item.presence==='出席'?'<span style="font-size:0.75rem;color:#198754;"><i class="fa-solid fa-circle-check me-1"></i>出席</span>'
+                                    :item.presence==='无法出席'?'<span style="font-size:0.75rem;color:#dc3545;"><i class="fa-solid fa-circle-xmark me-1"></i>无法出席</span>':'';
                                 html+='<div class="cn-frame rounded-4 p-3 mb-3" style="background:var(--cn-cream);border-color:var(--cn-gold)!important;">'
                                     +'<div class="d-flex justify-content-between align-items-center mb-1">'
                                     +'<strong style="color:var(--cn-red-dark);font-size:0.95rem;"><i class="fa-solid fa-user me-1"></i>'+esc(item.name)+'</strong>'
                                     +'<small style="color:#999;">'+esc(d)+'</small></div>'
+                                    +(pBadge?'<div class="mb-1">'+pBadge+'</div>':'')
                                     +'<p class="m-0" style="font-size:0.9rem;color:#555;">'+esc(item.message)+'</p></div>';
                             });
                             el.innerHTML=html;
