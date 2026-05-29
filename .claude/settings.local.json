@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(cd:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebFetch(domain:mathewxie.github.io)",
+      "WebSearch",
+      "WebFetch(domain:eastmeetsdress.com)",
+      "WebFetch(domain:www.bootstrapmb.com)",
+      "WebFetch(domain:codepen.io)",
+      "WebFetch(domain:www.canva.cn)",
+      "WebFetch(domain:party.alibaba.com)",
+      "WebFetch(domain:paperlust.co)"
     ]
   }
 }
