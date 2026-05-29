@@ -502,66 +502,6 @@
                 <!-- Gold line separator -->
                 <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--cn-gold), transparent);"></div>
 
-                <!-- RSVP -->
-                <section class="my-0 pb-4 pt-4" id="rsvp" style="background-color: #fff;">
-                    <div class="container">
-                        <div class="cn-divider"><span class="cn-xi cn-xi-animated" style="font-size: 1.8rem;">囍</span></div>
-                        <h2 class="font-esthetic text-center mt-1 mb-4" style="font-size: 2.25rem; color: var(--cn-red);" data-i18n="出席确认">出席确认</h2>
-
-                        <div class="mx-2 cn-frame rounded-4 p-4" style="background: var(--cn-cream); border-color: var(--cn-gold) !important;">
-                            <div class="mb-3">
-                                <label for="rsvp-name" class="form-label my-1" style="color: var(--cn-red-dark);"><i class="fa-solid fa-person me-2"></i><span data-i18n="姓名">姓名</span></label>
-                                <input type="text" class="form-control shadow-sm rounded-4" id="rsvp-name" minlength="2" maxlength="50" placeholder="请输入您的姓名" data-i18n-placeholder="请输入您的姓名" autocomplete="name" style="border-color: rgba(var(--cn-gold-rgb),0.4);">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="rsvp-presence" class="form-label my-1" style="color: var(--cn-red-dark);"><i class="fa-solid fa-person-circle-question me-2"></i><span data-i18n="是否出席">是否出席</span></label>
-                                <select class="form-select shadow-sm rounded-4" id="rsvp-presence" autocomplete="off" style="border-color: rgba(var(--cn-gold-rgb),0.4);">
-                                    <option value="" selected disabled data-i18n="请选择">请选择</option>
-                                    <option value="出席" data-i18n-value="出席">&#9989; 出席</option>
-                                    <option value="无法出席" data-i18n-value="无法出席">&#10060; 无法出席</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="rsvp-message" class="form-label my-1" style="color: var(--cn-red-dark);"><i class="fa-solid fa-comment me-2"></i><span data-i18n="祝福留言">祝福留言</span></label>
-                                <textarea class="form-control shadow-sm rounded-4" id="rsvp-message" rows="3" maxlength="500" placeholder="写下您的祝福（选填）" data-i18n-placeholder="写下您的祝福（选填）" style="border-color: rgba(var(--cn-gold-rgb),0.4);"></textarea>
-                            </div>
-
-                            <div class="d-grid">
-                                <button class="btn btn-sm rounded-4 shadow m-1" id="rsvp-btn" style="background-color: var(--cn-red); color: #fff; border-color: var(--cn-gold);" onclick="(function(btn){
-                                    var name=document.getElementById('rsvp-name');
-                                    var presence=document.getElementById('rsvp-presence');
-                                    var message=document.getElementById('rsvp-message');
-                                    if(!name.value.trim()){alert('请输入您的姓名');return;}
-                                    if(!presence.value){alert('请选择是否出席');return;}
-                                    btn.disabled=true;btn.innerHTML='<i class=&quot;fa-solid fa-spinner fa-spin me-2&quot;></i>提交中...';
-                                    fetch('https://api.web3forms.com/submit',{
-                                        method:'POST',
-                                        headers:{'Content-Type':'application/json','Accept':'application/json'},
-                                        body:JSON.stringify({access_key:'bd39f26c-2de4-46e6-ad90-95871f00afe3',subject:'婚礼请柬 - 新的出席确认',姓名:name.value,是否出席:presence.value,祝福留言:message.value||'(无)'})
-                                    }).then(function(r){return r.json()}).then(function(data){
-                                        if(data.success){
-                                            btn.innerHTML='<i class=&quot;fa-solid fa-check me-2&quot;></i>已提交，感谢您！';
-                                            btn.style.backgroundColor='#198754';
-                                            name.disabled=true;presence.disabled=true;message.disabled=true;
-                                            if(typeof confetti==='function'){confetti({particleCount:100,spread:70,origin:{y:0.6}});}
-                                        }else{throw new Error();}
-                                    }).catch(function(){
-                                        btn.disabled=false;btn.innerHTML='<i class=&quot;fa-solid fa-paper-plane me-2&quot;></i>提交';
-                                        alert('提交失败，请稍后再试');
-                                    });
-                                })(this)">
-                                    <i class="fa-solid fa-paper-plane me-2"></i><span data-i18n="提交">提交</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Gold line separator -->
-                <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--cn-gold), transparent);"></div>
-
                 <!-- End Of Invitation -->
                 <section class="py-5" style="background-color: var(--cn-cream);">
                     <div class="container text-center px-4">
@@ -671,9 +611,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#rsvp">
+                        <a class="nav-link" href="#guestbook">
                             <i class="fa-solid fa-clipboard-check"></i>
-                            <span class="d-block" style="font-size: 0.7rem;" data-i18n="确认">确认</span>
+                            <span class="d-block" style="font-size: 0.7rem;" data-i18n="祝福">祝福</span>
                         </a>
                     </li>
                 </ul>
