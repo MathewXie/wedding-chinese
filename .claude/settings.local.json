@@ -10,7 +10,11 @@
       "WebFetch(domain:codepen.io)",
       "WebFetch(domain:www.canva.cn)",
       "WebFetch(domain:party.alibaba.com)",
-      "WebFetch(domain:paperlust.co)"
+      "WebFetch(domain:paperlust.co)",
+      "Bash(npx vercel:*)",
+      "Bash(npx wrangler:*)",
+      "Bash(npm run:*)",
+      "Bash(nslookup:*)"
     ]
   }
 }
